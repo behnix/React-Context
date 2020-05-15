@@ -1,21 +1,27 @@
 import React, { useContext } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
+import { BookContext } from "../contexts/BookContext";
 
 const BookList = () => {
-  const {isLight, Light, Dark} = useContext(ThemeContext)
+  const { isLight, Light, Dark } = useContext(ThemeContext);
+  const { books } = useContext(BookContext);
   const theme = isLight ? Light : Dark;
-  return ( 
+  return (
     <div
       className="book-list"
       style={{ color: theme.syntax, background: theme.ui }}
     >
       <ul>
-        <li style={{ background: theme.bg }}>C# for beginner</li>
-        <li style={{ background: theme.bg }}>React & Redux self study</li>
-        <li style={{ background: theme.bg }}>Javascript from scratch</li>
+        {books.map((book) => {
+          return (
+            <li key={book.id} style={{ background: theme.bg }}>
+              {book.title}
+            </li>
+          );
+        })}
       </ul>
     </div>
-   );
-}
- 
+  );
+};
+
 export default BookList;
